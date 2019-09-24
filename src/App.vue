@@ -1,16 +1,19 @@
 <template>
   <div id="app">
+    <add-todo-form v-on:create-todo="addTodo"/>
     <todo-list v-bind:todos="todos" />
   </div>
 </template>
 
 <script>
 import TodoList from './components/TodoList.vue'
+import AddTodoForm from './components/AddTodoForm.vue'
 
 export default {
   name: 'app',
   components: {
-    TodoList
+    TodoList,
+    AddTodoForm
   },
   data: function() {
     return {
@@ -31,6 +34,15 @@ export default {
         project: 'Project D',
         done: false,
       }],
+    }
+  },
+  methods: {
+    addTodo(title) {
+      this.todos.push({
+        title,
+        project: '',
+        done: false
+      })
     }
   }
 }
