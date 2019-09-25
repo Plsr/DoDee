@@ -40,10 +40,10 @@ export default {
     }
   },
   methods: {
-    addTodo(title) {
+    addTodo(title, project) {
       this.todos.push({
         title,
-        project: '',
+        project: project,
         done: false
       })
     }

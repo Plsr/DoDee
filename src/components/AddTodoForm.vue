@@ -13,7 +13,10 @@
     },
     methods: {
       handleSubmit() {
-        this.$emit('create-todo', this.todoTitle)
+        const split = this.todoTitle.split('#')
+        const title = split [0]
+        const project = split[1]
+        this.$emit('create-todo', title, project)
       }
     }
   }

@@ -5,16 +5,21 @@
       class="todo-button"
       v-bind:class="{ 'todo-button-completed': this.isCompleted}"
     />
-    <span v-bind:class="{ 'todo-text-completed': this.isCompleted }"><slot></slot></span>
+    <span v-bind:class="{ 'todo-text-completed': this.isCompleted }">{{ todo.title}} <span v-show="!!todo.project">#{{todo.project}}</span></span>
   </div>
 </template>
 
 <script>
   export default {
-    props: ['isCompleted'],
+    props: ['todo'],
     methods: {
       handleClick() {
         this.$emit('checkbox-click')
+      }
+    },
+    computed: {
+      isCompleted() {
+        return this.todo.done
       }
     }
   }

@@ -4,22 +4,18 @@
       <todo-item
         v-for="(todo, index) in openTodos"
         v-bind:key="index"
-        v-bind:is-completed="todo.done"
+        v-bind:todo="todo"
         v-on:checkbox-click="handleTodoClick(todo)"
-      >
-        {{ todo.title }}
-      </todo-item>
+      />
     </ul>
     <hr />
     <ul>
       <todo-item
         v-for="(todo, index) in finishedTodos"
         v-bind:key="index"
-        v-bind:is-completed="todo.done"
+        v-bind:todo="todo"
         v-on:checkbox-click="handleTodoClick(todo)"
-      >
-        {{ todo.title }}
-      </todo-item>
+      />
     </ul>
   </div>
 </template>
