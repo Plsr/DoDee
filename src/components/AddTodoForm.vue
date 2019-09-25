@@ -13,10 +13,14 @@
     },
     methods: {
       handleSubmit() {
+        if (this.todoTitle.length <= 0) return
+
         const split = this.todoTitle.split('#')
         const title = split [0]
         const project = split[1]
         this.$emit('create-todo', title, project)
+
+        this.todoTitle = ''
       }
     }
   }
