@@ -23,6 +23,7 @@
 <style>
   .todo-button {
     position: relative;
+    box-sizing: border-box;
     border: 2px solid #333333;
     border-radius: 4px;
     width: 20px;

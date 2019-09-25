@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h3>Still todo</h3>
     <ul>
       <todo-item
         v-for="(todo, index) in openTodos"
@@ -11,7 +10,7 @@
         {{ todo.title }}
       </todo-item>
     </ul>
-    <h3>Completed</h3>
+    <hr />
     <ul>
       <todo-item
         v-for="(todo, index) in finishedTodos"
