@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <time-display />
     <add-todo-form v-on:create-todo="addTodo"/>
     <todo-list v-bind:todos="todos" />
   </div>
@@ -8,12 +9,14 @@
 <script>
 import TodoList from './components/TodoList.vue'
 import AddTodoForm from './components/AddTodoForm.vue'
+import TimeDisplay from './components/TimeDisplay.vue'
 
 export default {
   name: 'app',
   components: {
     TodoList,
-    AddTodoForm
+    AddTodoForm,
+    TimeDisplay
   },
   data: function() {
     return {
