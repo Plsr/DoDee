@@ -20,23 +20,19 @@ export default {
   },
   data: function() {
     return {
-      todos: [{
-        title: 'Todo A',
-        project: 'Project A',
-        done: false,
-      }, {
-        title: 'Todo B',
-        project: 'Project B',
-        done: true,
-      }, {
-        title: 'Todo C',
-        project: 'Project C',
-        done: false,
-      }, {
-        title: 'Todo D',
-        project: 'Project D',
-        done: false,
-      }],
+      todos: [],
+    }
+  },
+  created() {
+    window.addEventListener('beforeunload', this.saveTodos)
+  },
+  mounted() {
+    if (localStorage.getItem('todos')) {
+      try {
+        this.todos = JSON.parse(localStorage.getItem('todos'))
+      } catch(e) {
+        localStorage.removeItem('todos')
+      }
     }
   },
   methods: {
@@ -46,6 +42,10 @@ export default {
         project: project,
         done: false
       })
+    },
+    saveTodos() {
+      const parsedTodos = JSON.stringify(this.todos)
+      localStorage.setItem('todos', parsedTodos)
     }
   }
 }
