@@ -2,7 +2,7 @@
   <div id="app">
     <time-display />
     <add-todo-form v-on:create-todo="addTodo"/>
-    <todo-list v-bind:todos="todos" />
+    <todo-list v-on:toggle-todo="toggleTodo" v-on:delete-todo="deleteTodo" v-bind:todos="todos" />
   </div>
 </template>
 
@@ -42,6 +42,12 @@ export default {
         project: project,
         done: false
       })
+    },
+    toggleTodo(index) {
+      this.todos[index].done = !this.todos[index].done
+    },
+    deleteTodo(index) {
+      this.todos.splice(index, 1)
     },
     saveTodos() {
       const parsedTodos = JSON.stringify(this.todos)

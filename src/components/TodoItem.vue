@@ -1,11 +1,12 @@
 <template>
   <div>
     <button
-      v-on:click="handleClick"
+      v-on:click="handleCompleteClick"
       class="todo-button"
       v-bind:class="{ 'todo-button-completed': this.isCompleted}"
     />
     <span v-bind:class="{ 'todo-text-completed': this.isCompleted }">{{ todo.title}} <project-pill v-show="!!todo.project">{{todo.project}}</project-pill></span>
+    <button v-on:click="handleDeleteClick">Delete</button>
   </div>
 </template>
 
@@ -18,8 +19,11 @@
       ProjectPill
     },
     methods: {
-      handleClick() {
+      handleCompleteClick() {
         this.$emit('checkbox-click')
+      },
+      handleDeleteClick() {
+        this.$emit('delete-click')
       }
     },
     computed: {

@@ -6,6 +6,7 @@
         v-bind:key="index"
         v-bind:todo="todo"
         v-on:checkbox-click="handleTodoClick(todo)"
+        v-on:delete-click="handleTodoDelete(todo)"
       />
     </ul>
     <hr />
@@ -39,7 +40,11 @@
     methods: {
       handleTodoClick(todo) {
         const index = this.todos.indexOf(todo)
-        this.todos[index].done = !this.todos[index].done
+        this.$emit('toggle-todo', index)
+      },
+      handleTodoDelete(todo) {
+        const index = this.todos.indexOf(todo)
+        this.$emit('delete-todo', index)
       }
     }
   }
