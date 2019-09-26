@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="card">
     <ul>
       <todo-item
         v-for="(todo, index) in openTodos"
@@ -44,3 +44,19 @@
     }
   }
 </script>
+
+<style scoped>
+  .card {
+    background-color: #ffffff;
+    padding: 1rem;
+    max-width: 600px;
+    margin: 1rem auto;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.07),
+                0 2px 4px rgba(0,0,0,0.07),
+                0 4px 8px rgba(0,0,0,0.07),
+                0 8px 16px rgba(0,0,0,0.07),
+                0 16px 32px rgba(0,0,0,0.07),
+                0 32px 64px rgba(0,0,0,0.07);
+  }
+</style>

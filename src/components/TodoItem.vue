@@ -5,13 +5,18 @@
       class="todo-button"
       v-bind:class="{ 'todo-button-completed': this.isCompleted}"
     />
-    <span v-bind:class="{ 'todo-text-completed': this.isCompleted }">{{ todo.title}} <span v-show="!!todo.project">#{{todo.project}}</span></span>
+    <span v-bind:class="{ 'todo-text-completed': this.isCompleted }">{{ todo.title}} <project-pill v-show="!!todo.project">{{todo.project}}</project-pill></span>
   </div>
 </template>
 
 <script>
+  import ProjectPill from './ProjectPill.vue'
+
   export default {
     props: ['todo'],
+    components: {
+      ProjectPill
+    },
     methods: {
       handleClick() {
         this.$emit('checkbox-click')
@@ -25,7 +30,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   .todo-button {
     position: relative;
     box-sizing: border-box;
