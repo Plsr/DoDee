@@ -26,7 +26,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   .wrapper {
     display: flex;
     align-items: center;

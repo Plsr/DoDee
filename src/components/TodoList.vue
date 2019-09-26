@@ -1,6 +1,7 @@
 <template>
   <div class="card">
-    <ul>
+    <h3 class="headline">🔥 Today</h3>
+    <ul class="todo-list">
       <todo-item
         v-for="(todo, index) in openTodos"
         v-bind:key="index"
@@ -9,8 +10,8 @@
         v-on:delete-click="handleTodoDelete(todo)"
       />
     </ul>
-    <hr />
-    <ul>
+    <h3 class="headline headline-completed">Completed</h3>
+    <ul class="todo-list">
       <todo-item
         v-for="(todo, index) in finishedTodos"
         v-bind:key="index"
@@ -51,6 +52,23 @@
 </script>
 
 <style scoped>
+  .headline {
+    margin: 0;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+
+  .headline-completed {
+    color: #aaa;
+    margin-top: 2rem;
+    text-decoration: line-through;
+  }
+
+  .todo-list {
+    margin: 0;
+    padding: 0;
+  }
+
   .card {
     background-color: #ffffff;
     padding: 1rem;

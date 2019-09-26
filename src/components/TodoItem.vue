@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <li class="wrapper">
     <button
       v-on:click="handleCompleteClick"
       class="todo-button"
@@ -7,7 +7,7 @@
     />
     <span v-bind:class="{ 'todo-text-completed': this.isCompleted }">{{ todo.title}} <project-pill v-show="!!todo.project">{{todo.project}}</project-pill></span>
     <button v-on:click="handleDeleteClick">Delete</button>
-  </div>
+  </li>
 </template>
 
 <script>
@@ -35,22 +35,23 @@
 </script>
 
 <style scoped>
+  .wrapper {
+    padding: 0.8rem 0;
+    list-style-type: none;
+  }
+
   .todo-button {
     position: relative;
     box-sizing: border-box;
-    border: 2px solid #333333;
-    border-radius: 4px;
+    border: 2px solid #999;
+    border-radius: 50%;
     width: 20px;
     height: 20px;
     margin-right: 1rem;
   }
 
-  .todo-button:hover:after {
-    content: '✔';
-    position: absolute;
-    font-size: 0.9rem;
-    top: 0;
-    left: 3px;
+  .todo-button:hover {
+    background-color: #999;
   }
 
   .todo-button-completed {
@@ -69,5 +70,6 @@
 
   .todo-text-completed {
     text-decoration: line-through;
+    color: #999;
   }
 </style>
