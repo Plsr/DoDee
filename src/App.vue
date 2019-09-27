@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <time-display />
-    <add-todo-form v-on:create-todo="addTodo" />
     <todo-list
       v-on:toggle-todo="toggleTodo"
       v-on:delete-todo="deleteTodo"
@@ -66,14 +65,15 @@ body {
   background: #f8f8f8;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
 #app {
+  position: relative;
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

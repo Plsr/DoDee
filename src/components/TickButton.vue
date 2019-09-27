@@ -16,7 +16,7 @@ export default {
   position: relative;
   box-sizing: border-box;
   border: 2px solid #999;
-  border-radius: 50%;
+  border-radius: 4px;
   width: 20px;
   height: 20px;
   margin-right: 1rem;

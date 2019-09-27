@@ -1,7 +1,6 @@
 <template>
   <li
     class="wrapper"
-    v-bind:class="{ 'wrapper-active': hover || isContextMenuOpen }"
     @mouseover="handleMouseOver()"
     @mouseleave="handleMouseLeave()"
   >
@@ -72,10 +71,6 @@ export default {
   padding: 0.8rem 0;
   list-style-type: none;
   display: flex;
-}
-
-.wrapper-active {
-  background-color: #f8f8f8;
 }
 
 .todo-text-completed {
