@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <time-display />
+    <add-todo-form />
     <todo-list
       v-on:toggle-todo="toggleTodo"
       v-on:delete-todo="deleteTodo"
@@ -67,6 +68,7 @@ body {
   background-size: cover;
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 #app {
