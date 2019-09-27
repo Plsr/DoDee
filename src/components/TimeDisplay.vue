@@ -59,18 +59,22 @@ export default {
 .content {
   max-width: 600px;
   margin: 0 auto 3rem auto;
+  z-index: 0;
+  position: relative;
 }
 
 .wrapper {
   margin: 3rem 0;
   min-height: 120px;
+  position: relative;
+  z-index: -1;
 }
 
-.background {
+.wrapper:before {
+  content: "";
   position: absolute;
-  z-index: -1;
-  bottom: 200px;
-  left: -60%;
+  bottom: -300px;
+  right: -300px;
   background: #00d2ff; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to right,
