@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <time-display />
-    <add-todo-form />
+    <add-todo-form v-on:create-todo="addTodo" />
     <todo-list
       v-on:toggle-todo="toggleTodo"
       v-on:delete-todo="deleteTodo"
