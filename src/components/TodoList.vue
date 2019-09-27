@@ -10,7 +10,9 @@
         v-on:delete-click="handleTodoDelete(todo)"
       />
     </ul>
-    <button v-on:click="showCreateForm">Add new task</button>
+    <button class="add-task-button" v-on:click="showCreateForm">
+      + Add new task
+    </button>
     <h3 class="headline headline-completed">Completed</h3>
     <ul class="todo-list">
       <todo-item
@@ -60,6 +62,23 @@ export default {
   margin: 0;
   margin-bottom: 1rem;
   font-size: 1.5rem;
+}
+
+.add-task-button {
+  border: 2px solid #3a7bd5;
+  color: #3a7bd5;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border-radius: 4px;
+  background-color: transparent;
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.add-task-button:hover {
+  color: #ffffff;
+  background-color: #3a7bd5;
 }
 
 .headline-completed {
