@@ -7,11 +7,11 @@
         <circle cx="16" cy="10" r="2" />
       </svg>
     </button>
-    <ul v-if="isMenuOpen" class="menu">
-      <li class="item">
+    <div v-if="isMenuOpen" class="menu">
+      <div class="item">
         <slot></slot>
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -46,6 +46,13 @@ export default {
   display: block;
   white-space: nowrap;
   list-style-type: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.item:hover {
+  background-color: #f8f8f8;
 }
 
 .edit-button {
@@ -60,7 +67,12 @@ export default {
 
 .menu {
   position: absolute;
+  top: 50%;
+  left: 20px;
   background-color: #ffffff;
-  padding: 0.5rem;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
+    0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
+    0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
 }
 </style>

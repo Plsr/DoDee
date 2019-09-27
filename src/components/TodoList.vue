@@ -82,9 +82,8 @@ export default {
 }
 
 .headline-completed {
-  color: #aaa;
+  color: #bbb;
   margin-top: 2rem;
-  text-decoration: line-through;
 }
 
 .todo-list {
