@@ -11,7 +11,8 @@
     "core-js": "^2.6.5",
     "dayjs": "^1.8.16",
     "humanize-duration": "^3.20.1",
-    "vue": "^2.6.10"
+    "vue": "^2.6.10",
+    "vue-js-modal": "^1.3.31"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.11.0",

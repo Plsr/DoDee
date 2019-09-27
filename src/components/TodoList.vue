@@ -10,6 +10,7 @@
         v-on:delete-click="handleTodoDelete(todo)"
       />
     </ul>
+    <button v-on:click="showCreateForm">Add new task</button>
     <h3 class="headline headline-completed">Completed</h3>
     <ul class="todo-list">
       <todo-item
@@ -46,6 +47,9 @@
       handleTodoDelete(todo) {
         const index = this.todos.indexOf(todo)
         this.$emit('delete-todo', index)
+      },
+      showCreateForm() {
+        this.$modal.show('create-todo-modal')
       }
     }
   }
