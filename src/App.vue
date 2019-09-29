@@ -2,11 +2,12 @@
   <div id="app">
     <time-display />
     <add-todo-form v-on:create-todo="addTodo" />
-    <div v-if="importTodos.length > 0">
-      <div>{{ importTodos[0].title }}</div>
-      <button v-on:click="dismissTodo">Dismiss</button>
-      <button v-on:click="importTodo(importTodos[0])">Import</button>
-    </div>
+    <import-candidate
+      v-on:import-click="importTodo(importTodos[0])"
+      v-on:dismiss-click="dismissTodo"
+      v-if="dataLoaded && this.hasImportCandidates()"
+      v-bind:todo="this.importTodos[0]"
+    />
     <todo-list
       v-on:toggle-todo="toggleTodo"
       v-on:delete-todo="deleteTodo"
@@ -21,6 +22,7 @@ import dayjs from "dayjs";
 import TodoList from "./components/TodoList.vue";
 import AddTodoForm from "./components/AddTodoForm.vue";
 import TimeDisplay from "./components/TimeDisplay.vue";
+import ImportCandidate from "./components/ImportCandidate.vue";
 
 import { moveProjectsToTags } from "./utils/DataIntegrity.js";
 
@@ -29,7 +31,8 @@ export default {
   components: {
     TodoList,
     AddTodoForm,
-    TimeDisplay
+    TimeDisplay,
+    ImportCandidate
   },
   data: function() {
     return {
@@ -95,6 +98,9 @@ export default {
     saveTodos() {
       const parsedTodos = JSON.stringify([...this.todos, ...this.importTodos]);
       localStorage.setItem("todos", parsedTodos);
+    },
+    hasImportCandidates() {
+      return this.importTodos && this.importTodos.lenght > 0;
     }
   }
 };
