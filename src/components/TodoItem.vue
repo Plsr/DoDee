@@ -3,7 +3,7 @@
     <tick-button v-on:click.native="handleCompleteClick" v-bind:is-completed="isCompleted" />
     <span v-bind:class="{ 'todo-text-completed': this.isCompleted }">
       {{ todo.title }}
-      <div class="project-pills" v-if="todo.tags.length > 0">
+      <div class="project-pills" v-if="todo.tags && todo.tags.length > 0">
         <project-pill v-for="(tag, index) in todo.tags" v-bind:key="index">
           {{
           tag

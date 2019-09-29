@@ -2,6 +2,11 @@
   <div id="app">
     <time-display />
     <add-todo-form v-on:create-todo="addTodo" />
+    <div v-if="importTodos.length > 0">
+      <div>{{ importTodos[0].title }}</div>
+      <button v-on:click="dismissTodo">Dismiss</button>
+      <button v-on:click="importTodo(importTodos[0])">Import</button>
+    </div>
     <todo-list
       v-on:toggle-todo="toggleTodo"
       v-on:delete-todo="deleteTodo"
@@ -40,8 +45,10 @@ export default {
     if (localStorage.getItem("todos")) {
       try {
         const importedTodos = await JSON.parse(localStorage.getItem("todos"));
+
+        // Always call integrity service and just change that parent function then?
         const securedTodos = moveProjectsToTags(importedTodos);
-        // TODO: Store yesterdays todos in a distinct array as well
+
         const todaysTodos = securedTodos.filter(
           todo => todo.createdAt && dayjs(todo.createdAt).isSame(dayjs(), "day")
         );
@@ -50,8 +57,7 @@ export default {
             todo.createdAt &&
             dayjs(todo.createdAt).isSame(dayjs().subtract(1, "day"), "day")
         );
-        // Always call integrity service and just change that parent function then?
-        // TODO: Should probably be called at the very beginning of this function
+
         this.todos = todaysTodos;
         this.importTodos = yesterdaysTodos;
         this.dataLoaded = true;
@@ -69,8 +75,16 @@ export default {
         title,
         tags: cleanedTags,
         done: false,
-        createdAt: new Date()
+        createdAt: dayjs().subtract(1, "days")
       });
+    },
+    importTodo(todo) {
+      const importedTodo = { ...todo, createdAt: dayjs() };
+      this.todos.push(importedTodo);
+      this.importTodos.shift();
+    },
+    dismissTodo() {
+      this.importTodos.shift();
     },
     toggleTodo(index) {
       this.todos[index].done = !this.todos[index].done;
@@ -79,7 +93,7 @@ export default {
       this.todos.splice(index, 1);
     },
     saveTodos() {
-      const parsedTodos = JSON.stringify(this.todos);
+      const parsedTodos = JSON.stringify([...this.todos, ...this.importTodos]);
       localStorage.setItem("todos", parsedTodos);
     }
   }
