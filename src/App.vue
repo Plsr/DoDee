@@ -62,6 +62,16 @@ export default {
 </script>
 
 <style>
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:after,
+*:befopre {
+  box-sizing: inherit;
+}
+
 body {
   background: #f8f8f8;
   background-repeat: no-repeat;

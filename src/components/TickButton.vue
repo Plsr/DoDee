@@ -14,7 +14,6 @@ export default {
 <style scoped>
 .todo-button {
   position: relative;
-  box-sizing: border-box;
   border: 2px solid #999;
   border-radius: 4px;
   width: 20px;
