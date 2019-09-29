@@ -78,7 +78,7 @@ export default {
         title,
         tags: cleanedTags,
         done: false,
-        createdAt: dayjs().subtract(1, "days")
+        createdAt: dayjs()
       });
     },
     importTodo(todo) {
