@@ -64,7 +64,6 @@ export default {
 
         this.todos = todaysTodos;
         this.importTodos = yesterdaysTodos;
-        console.log(this.importTodos);
         this.dataLoaded = true;
       } catch (e) {
         // eslint-disable-next-line
