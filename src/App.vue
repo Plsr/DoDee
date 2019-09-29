@@ -6,14 +6,18 @@
       v-on:toggle-todo="toggleTodo"
       v-on:delete-todo="deleteTodo"
       v-bind:todos="todos"
+      v-if="dataLoaded"
     />
   </div>
 </template>
 
 <script>
+import dayjs from "dayjs";
 import TodoList from "./components/TodoList.vue";
 import AddTodoForm from "./components/AddTodoForm.vue";
 import TimeDisplay from "./components/TimeDisplay.vue";
+
+import { moveProjectsToTags } from "./utils/DataIntegrity.js";
 
 export default {
   name: "app",
@@ -24,27 +28,35 @@ export default {
   },
   data: function() {
     return {
-      todos: []
+      todos: [],
+      dataLoaded: false
     };
   },
   created() {
     window.addEventListener("beforeunload", this.saveTodos);
   },
-  mounted() {
+  async mounted() {
     if (localStorage.getItem("todos")) {
       try {
-        this.todos = JSON.parse(localStorage.getItem("todos"));
+        const importedTodos = await JSON.parse(localStorage.getItem("todos"));
+        const filteredTodos = importedTodos.filter(
+          todo => todo.createdAt && dayjs(todo.createdAt).isSame(dayjs(), "day")
+        );
+        const todosWithIntegrity = moveProjectsToTags(filteredTodos);
+        this.todos = todosWithIntegrity;
+        this.dataLoaded = true;
       } catch (e) {
         localStorage.removeItem("todos");
       }
     }
   },
   methods: {
-    addTodo(title, project) {
+    addTodo(title, tags) {
       this.todos.push({
         title,
-        project: project,
-        done: false
+        tags: [...tags],
+        done: false,
+        createdAt: new Date()
       });
     },
     toggleTodo(index) {

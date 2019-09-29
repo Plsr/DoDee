@@ -33,15 +33,15 @@ export default {
       if (this.todoTitle.length <= 0) return;
 
       const todoData = this.getTodoData();
-      this.$emit("create-todo", todoData.title, todoData.project);
+      this.$emit("create-todo", todoData.title, todoData.tags);
 
       this.resetFormState();
     },
     getTodoData() {
       const split = this.todoTitle.split("#");
       const title = split[0];
-      const project = split[1];
-      return { title, project };
+      const tags = split[1];
+      return { title, tags: [tags] };
     },
     resetFormState() {
       this.todoTitle = "";

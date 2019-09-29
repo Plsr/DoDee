@@ -10,7 +10,9 @@
     />
     <span v-bind:class="{ 'todo-text-completed': this.isCompleted }">
       {{ todo.title }}
-      <project-pill v-show="!!todo.project">{{ todo.project }}</project-pill>
+      <project-pill v-for="(tag, index) in todo.tags" v-bind:key="index">{{
+        tag
+      }}</project-pill>
     </span>
     <context-menu
       class="context-menu"
