@@ -1,18 +1,15 @@
 <template>
-  <li
-    class="wrapper"
-    @mouseover="handleMouseOver()"
-    @mouseleave="handleMouseLeave()"
-  >
-    <tick-button
-      v-on:click.native="handleCompleteClick"
-      v-bind:is-completed="isCompleted"
-    />
+  <li class="wrapper" @mouseover="handleMouseOver()" @mouseleave="handleMouseLeave()">
+    <tick-button v-on:click.native="handleCompleteClick" v-bind:is-completed="isCompleted" />
     <span v-bind:class="{ 'todo-text-completed': this.isCompleted }">
       {{ todo.title }}
-      <project-pill v-for="(tag, index) in todo.tags" v-bind:key="index">{{
-        tag
-      }}</project-pill>
+      <div class="project-pills" v-if="todo.tags.length > 0">
+        <project-pill v-for="(tag, index) in todo.tags" v-bind:key="index">
+          {{
+          tag
+          }}
+        </project-pill>
+      </div>
     </span>
     <context-menu
       class="context-menu"
@@ -82,5 +79,9 @@ export default {
 
 .context-menu {
   margin-left: auto;
+}
+
+.project-pills {
+  display: inline;
 }
 </style>

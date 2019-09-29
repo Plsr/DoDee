@@ -29,6 +29,7 @@ export default {
   data: function() {
     return {
       todos: [],
+      importTodos: [],
       dataLoaded: false
     };
   },
@@ -39,22 +40,34 @@ export default {
     if (localStorage.getItem("todos")) {
       try {
         const importedTodos = await JSON.parse(localStorage.getItem("todos"));
-        const filteredTodos = importedTodos.filter(
+        const securedTodos = moveProjectsToTags(importedTodos);
+        // TODO: Store yesterdays todos in a distinct array as well
+        const todaysTodos = securedTodos.filter(
           todo => todo.createdAt && dayjs(todo.createdAt).isSame(dayjs(), "day")
         );
-        const todosWithIntegrity = moveProjectsToTags(filteredTodos);
-        this.todos = todosWithIntegrity;
+        const yesterdaysTodos = securedTodos.filter(
+          todo =>
+            todo.createdAt &&
+            dayjs(todo.createdAt).isSame(dayjs().subtract(1, "day"), "day")
+        );
+        // Always call integrity service and just change that parent function then?
+        // TODO: Should probably be called at the very beginning of this function
+        this.todos = todaysTodos;
+        this.importTodos = yesterdaysTodos;
         this.dataLoaded = true;
       } catch (e) {
+        // eslint-disable-next-line
+        console.error(e);
         localStorage.removeItem("todos");
       }
     }
   },
   methods: {
     addTodo(title, tags) {
+      const cleanedTags = tags.filter(el => el);
       this.todos.push({
         title,
-        tags: [...tags],
+        tags: cleanedTags,
         done: false,
         createdAt: new Date()
       });

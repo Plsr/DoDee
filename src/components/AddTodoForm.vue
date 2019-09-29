@@ -9,10 +9,10 @@
         type="text"
         placeholder="🥛 Buy soy milk"
       />
-      <small v-if="todoTitle"
-        >Add tags to the task by prefixing them with a
-        <span class="tag-visualisation">#hash</span></small
-      >
+      <small v-if="todoTitle">
+        Add tags to the task by prefixing them with a
+        <span class="tag-visualisation">#hash</span>
+      </small>
       <div class="submit-area">
         <button class="submit-button" v-on:click="handleSubmit">Submit</button>
         <small>Or hit enter</small>
