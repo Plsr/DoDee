@@ -58,11 +58,13 @@ export default {
         const yesterdaysTodos = securedTodos.filter(
           todo =>
             todo.createdAt &&
-            dayjs(todo.createdAt).isSame(dayjs().subtract(1, "day"), "day")
+            dayjs(todo.createdAt).isSame(dayjs().subtract(1, "day"), "day") &&
+            !todo.done
         );
 
         this.todos = todaysTodos;
         this.importTodos = yesterdaysTodos;
+        console.log(this.importTodos);
         this.dataLoaded = true;
       } catch (e) {
         // eslint-disable-next-line
@@ -100,7 +102,7 @@ export default {
       localStorage.setItem("todos", parsedTodos);
     },
     hasImportCandidates() {
-      return this.importTodos && this.importTodos.lenght > 0;
+      return this.importTodos && this.importTodos.length > 0;
     }
   }
 };
