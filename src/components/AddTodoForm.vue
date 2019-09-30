@@ -1,5 +1,5 @@
 <template>
-  <modal name="create-todo-modal">
+  <modal name="create-todo-modal" @opened="opened">
     <div class="content">
       <h3 class="headline">📝 Add new todo</h3>
       <input
@@ -8,6 +8,7 @@
         v-on:keydown.enter="handleSubmit"
         type="text"
         placeholder="🥛 Buy soy milk"
+        ref="todoInput"
       />
       <small v-if="todoTitle">
         Add tags to the task by prefixing them with a
@@ -46,6 +47,12 @@ export default {
     resetFormState() {
       this.todoTitle = "";
       this.$modal.hide("create-todo-modal");
+    },
+    opened() {
+      this.focusInput();
+    },
+    focusInput() {
+      this.$refs.todoInput.focus();
     }
   }
 };
