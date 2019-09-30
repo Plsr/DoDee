@@ -1,12 +1,14 @@
 <template>
-  <span class="background">
+  <span class="background" v-bind:class="{ 'background-disabled': this.isDisabled }">
     #
     <slot></slot>
   </span>
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["isDisabled"]
+};
 </script>
 
 <style scoped>
@@ -16,6 +18,12 @@ export default {};
   border-radius: 4px;
   padding: 0.4rem;
   margin-right: 0.5rem;
+  text-decoration: none;
+}
+
+.background-disabled {
+  background-color: #f8f8f8;
+  color: #aaa;
 }
 
 .background:last-of-type {

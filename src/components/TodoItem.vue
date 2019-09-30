@@ -1,16 +1,14 @@
 <template>
   <li class="wrapper" @mouseover="handleMouseOver()" @mouseleave="handleMouseLeave()">
     <tick-button v-on:click.native="handleCompleteClick" v-bind:is-completed="isCompleted" />
-    <span v-bind:class="{ 'todo-text-completed': this.isCompleted }">
-      {{ todo.title }}
-      <div class="project-pills" v-if="todo.tags && todo.tags.length > 0">
-        <tag-pill v-for="(tag, index) in todo.tags" v-bind:key="index">
-          {{
-          tag
-          }}
-        </tag-pill>
-      </div>
-    </span>
+    <span class="todo-text" v-bind:class="{ 'todo-text-completed': isCompleted }">{{ todo.title }}</span>
+    <div class="project-pills" v-if="todo.tags && todo.tags.length > 0">
+      <tag-pill
+        v-for="(tag, index) in todo.tags"
+        v-bind:key="index"
+        v-bind:is-disabled="isCompleted"
+      >{{ tag }}</tag-pill>
+    </div>
     <context-menu
       class="context-menu"
       button-text="Edit"
@@ -70,6 +68,10 @@ export default {
   padding: 0.8rem 0;
   list-style-type: none;
   display: flex;
+}
+
+.todo-text {
+  margin-right: 0.5rem;
 }
 
 .todo-text-completed {
