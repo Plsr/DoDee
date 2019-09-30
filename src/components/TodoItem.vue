@@ -4,11 +4,11 @@
     <span v-bind:class="{ 'todo-text-completed': this.isCompleted }">
       {{ todo.title }}
       <div class="project-pills" v-if="todo.tags && todo.tags.length > 0">
-        <project-pill v-for="(tag, index) in todo.tags" v-bind:key="index">
+        <tag-pill v-for="(tag, index) in todo.tags" v-bind:key="index">
           {{
           tag
           }}
-        </project-pill>
+        </tag-pill>
       </div>
     </span>
     <context-menu
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import ProjectPill from "./ProjectPill.vue";
+import TagPill from "./TagPill.vue";
 import TickButton from "./TickButton.vue";
 import ContextMenu from "./ContextMenu.vue";
 
@@ -36,7 +36,7 @@ export default {
     };
   },
   components: {
-    ProjectPill,
+    TagPill,
     TickButton,
     ContextMenu
   },

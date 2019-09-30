@@ -41,8 +41,8 @@ export default {
     getTodoData() {
       const split = this.todoTitle.split("#");
       const title = split[0];
-      const tags = split[1];
-      return { title, tags: [tags] };
+      const tags = split.slice(1, split.length);
+      return { title, tags: tags };
     },
     resetFormState() {
       this.todoTitle = "";
