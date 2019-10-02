@@ -8,16 +8,19 @@
       </svg>
     </button>
     <div v-if="isMenuOpen" class="menu">
-      <div class="item">
-        <slot></slot>
-      </div>
+      <div
+        v-for="(item, index) in this.menuItems"
+        v-bind:key="index"
+        v-on:click="item.callback"
+        class="item"
+      >{{ item.title }}</div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["buttonText"],
+  props: ["buttonText", "menuItems"],
   data() {
     return {
       isMenuOpen: false

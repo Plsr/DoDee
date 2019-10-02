@@ -14,9 +14,8 @@
       button-text="Edit"
       v-if="hover || isContextMenuOpen"
       v-on:on-change-state="handleMenuStateChange"
-    >
-      <span v-on:click="handleDeleteClick">Delete Todo</span>
-    </context-menu>
+      v-bind:menu-items="this.contextMenuItems"
+    />
   </li>
 </template>
 
@@ -30,7 +29,8 @@ export default {
   data() {
     return {
       hover: false,
-      isContextMenuOpen: false
+      isContextMenuOpen: false,
+      contextMenuItems: [{ title: "Delete", callback: this.handleDeleteClick }]
     };
   },
   components: {
