@@ -19,11 +19,20 @@ export default {
   padding: 0.4rem;
   margin-right: 0.5rem;
   text-decoration: none;
+  cursor: pointer;
+}
+
+.background:hover {
+  background-color: #ddd;
 }
 
 .background-disabled {
   background-color: #f8f8f8;
   color: #aaa;
+}
+
+.background-disabled:hover {
+  background-color: #f8f8f8;
 }
 
 .background:last-of-type {

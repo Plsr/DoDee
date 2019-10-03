@@ -7,6 +7,7 @@
         v-for="(tag, index) in todo.tags"
         v-bind:key="index"
         v-bind:is-disabled="isCompleted"
+        v-on:click.native="handleTagClick(tag)"
       >{{ tag }}</tag-pill>
     </div>
     <context-menu
@@ -56,6 +57,9 @@ export default {
     },
     handleMouseLeave() {
       this.hover = false;
+    },
+    handleTagClick(tag) {
+      this.$emit("tag-click", tag);
     },
     handleMenuStateChange(event) {
       this.isContextMenuOpen = event === "open";

@@ -39,7 +39,8 @@ export default {
     return {
       todos: [],
       importTodos: [],
-      dataLoaded: false
+      dataLoaded: false,
+      filter: undefined
     };
   },
   created() {

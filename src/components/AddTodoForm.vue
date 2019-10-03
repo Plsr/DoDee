@@ -54,7 +54,7 @@ export default {
       return { ...this.todo, title, tags: tags };
     },
     resetFormState() {
-      this.todoTitle = "";
+      this.todo = { title: "", tags: [], id: undefined };
       this.$modal.hide("create-todo-modal");
     },
     beforeOpen(event) {
@@ -70,7 +70,7 @@ export default {
     },
     beforeClose() {
       if (this.inEditMode) {
-        this.todoTitle = "";
+        this.todo = { title: "", tags: [], id: undefined };
         this.inEditMode = false;
       }
     },

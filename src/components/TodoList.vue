@@ -1,6 +1,7 @@
 <template>
   <div class="card">
     <h3 class="headline">🔥 Today</h3>
+    <filter-pill v-on:click.native="clearFilter" v-if="this.filter">{{ this.filter }}</filter-pill>
     <ul class="todo-list">
       <todo-item
         v-for="(todo, index) in openTodos"
@@ -9,6 +10,7 @@
         v-on:checkbox-click="handleTodoClick(todo)"
         v-on:delete-click="handleTodoDelete(todo)"
         v-on:edit-click="handleTodoEdit(todo)"
+        v-on:tag-click="setFilter"
       />
     </ul>
     <button class="add-task-button" v-on:click="showCreateForm">+ Add new task</button>
@@ -26,21 +28,34 @@
 
 <script>
 import TodoItem from "./TodoItem.vue";
+import FilterPill from "./FilterPill.vue";
 
 export default {
   props: ["todos"],
   components: {
-    TodoItem
+    TodoItem,
+    FilterPill
+  },
+  data() {
+    return {
+      filter: undefined
+    };
   },
   computed: {
     openTodos() {
-      return this.todos.filter(todo => !todo.done);
+      return this.filteredTodos().filter(todo => !todo.done);
     },
     finishedTodos() {
-      return this.todos.filter(todo => todo.done);
+      return this.filteredTodos().filter(todo => todo.done);
     }
   },
   methods: {
+    filteredTodos() {
+      if (!this.filter) return this.todos;
+      return this.todos.filter(todo => {
+        return todo.tags.includes(this.filter);
+      });
+    },
     handleTodoClick(todo) {
       const index = this.todos.indexOf(todo);
       this.$emit("toggle-todo", index);
@@ -54,6 +69,12 @@ export default {
     },
     showCreateForm() {
       this.$modal.show("create-todo-modal");
+    },
+    setFilter(filter) {
+      this.filter = filter;
+    },
+    clearFilter() {
+      this.filter = undefined;
     }
   }
 };
