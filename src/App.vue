@@ -19,12 +19,13 @@
 
 <script>
 import dayjs from "dayjs";
+import uniqid from "uniqid";
 import TodoList from "./components/TodoList.vue";
 import AddTodoForm from "./components/AddTodoForm.vue";
 import TimeDisplay from "./components/TimeDisplay.vue";
 import ImportCandidate from "./components/ImportCandidate.vue";
 
-import { moveProjectsToTags } from "./utils/DataIntegrity.js";
+import { prepareTodoData } from "./utils/DataIntegrity.js";
 
 export default {
   name: "app",
@@ -48,9 +49,7 @@ export default {
     if (localStorage.getItem("todos")) {
       try {
         const importedTodos = await JSON.parse(localStorage.getItem("todos"));
-
-        // Always call integrity service and just change that parent function then?
-        const securedTodos = moveProjectsToTags(importedTodos);
+        const securedTodos = prepareTodoData(importedTodos);
 
         const todaysTodos = securedTodos.filter(
           todo => todo.createdAt && dayjs(todo.createdAt).isSame(dayjs(), "day")
@@ -79,7 +78,8 @@ export default {
         title,
         tags: cleanedTags,
         done: false,
-        createdAt: dayjs()
+        createdAt: dayjs(),
+        id: uniqid()
       });
     },
     importTodo(todo) {
