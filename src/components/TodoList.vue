@@ -8,11 +8,10 @@
         v-bind:todo="todo"
         v-on:checkbox-click="handleTodoClick(todo)"
         v-on:delete-click="handleTodoDelete(todo)"
+        v-on:edit-click="handleTodoEdit(todo)"
       />
     </ul>
-    <button class="add-task-button" v-on:click="showCreateForm">
-      + Add new task
-    </button>
+    <button class="add-task-button" v-on:click="showCreateForm">+ Add new task</button>
     <h3 class="headline headline-completed">Completed</h3>
     <ul class="todo-list">
       <todo-item
@@ -49,6 +48,9 @@ export default {
     handleTodoDelete(todo) {
       const index = this.todos.indexOf(todo);
       this.$emit("delete-todo", index);
+    },
+    handleTodoEdit(todo) {
+      this.$modal.show("create-todo-modal", { todo });
     },
     showCreateForm() {
       this.$modal.show("create-todo-modal");

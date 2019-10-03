@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <time-display />
-    <add-todo-form v-on:create-todo="addTodo" />
+    <add-todo-form v-on:submit="handleFormSubmit" />
     <import-candidate
       v-on:import-click="importTodo(importTodos[0])"
       v-on:dismiss-click="dismissTodo"
@@ -72,15 +72,29 @@ export default {
     }
   },
   methods: {
-    addTodo(title, tags) {
-      const cleanedTags = tags.filter(el => el);
+    handleFormSubmit(todo) {
+      if (todo.id) {
+        this.editTodo(todo);
+      } else {
+        this.addTodo(todo);
+      }
+    },
+    addTodo(todo) {
+      const cleanedTags = todo.tags.filter(el => el);
       this.todos.push({
-        title,
+        title: todo.title,
         tags: cleanedTags,
         done: false,
         createdAt: dayjs(),
         id: uniqid()
       });
+    },
+    editTodo(todo) {
+      const editTodo = this.todos.find(
+        existingTodos => existingTodos.id === todo.id
+      );
+      editTodo.title = todo.title;
+      editTodo.tags = [...todo.tags];
     },
     importTodo(todo) {
       const importedTodo = { ...todo, createdAt: dayjs() };

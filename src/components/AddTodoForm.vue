@@ -1,16 +1,21 @@
 <template>
-  <modal name="create-todo-modal" @opened="opened">
+  <modal
+    name="create-todo-modal"
+    @before-open="beforeOpen"
+    @opened="opened"
+    @before-close="beforeClose"
+  >
     <div class="content">
       <h3 class="headline">📝 Add new todo</h3>
       <input
         class="input"
-        v-model="todoTitle"
+        v-model="todo.title"
         v-on:keydown.enter="handleSubmit"
         type="text"
         placeholder="🥛 Buy soy milk"
         ref="todoInput"
       />
-      <small v-if="todoTitle">
+      <small v-if="this.todoTitlePresent()">
         Add tags to the task by prefixing them with a
         <span class="tag-visualisation">#hash</span>
       </small>
@@ -26,30 +31,48 @@
 export default {
   data() {
     return {
-      todoTitle: ""
+      todo: { title: "", tags: [], id: undefined },
+      inEditMode: false
     };
   },
   methods: {
     handleSubmit() {
-      if (this.todoTitle.length <= 0) return;
+      if (!this.todoTitlePresent()) return;
 
       const todoData = this.getTodoData();
-      this.$emit("create-todo", todoData.title, todoData.tags);
+      this.$emit("submit", todoData);
 
       this.resetFormState();
     },
+    todoTitlePresent() {
+      return this.todo.title.length > 0;
+    },
     getTodoData() {
-      const split = this.todoTitle.split("#");
-      const title = split[0];
+      const split = this.todo.title.split("#");
+      const title = split[0].trim();
       const tags = split.slice(1, split.length);
-      return { title, tags: tags };
+      return { ...this.todo, title, tags: tags };
     },
     resetFormState() {
       this.todoTitle = "";
       this.$modal.hide("create-todo-modal");
     },
+    beforeOpen(event) {
+      if (!event.params) return;
+      const todo = event.params.todo;
+      const tagsString = todo.tags.map(tag => `#${tag.trim()}`).join(" ");
+      const titleWithTags = todo.title + " " + tagsString;
+      this.todo = { ...todo, title: titleWithTags };
+      this.inEditMode = true;
+    },
     opened() {
       this.focusInput();
+    },
+    beforeClose() {
+      if (this.inEditMode) {
+        this.todoTitle = "";
+        this.inEditMode = false;
+      }
     },
     focusInput() {
       this.$refs.todoInput.focus();

@@ -30,7 +30,10 @@ export default {
     return {
       hover: false,
       isContextMenuOpen: false,
-      contextMenuItems: [{ title: "Delete", callback: this.handleDeleteClick }]
+      contextMenuItems: [
+        { title: "Delete", callback: this.handleDeleteClick },
+        { title: "Edit", callback: this.handleEditClick }
+      ]
     };
   },
   components: {
@@ -44,6 +47,9 @@ export default {
     },
     handleDeleteClick() {
       this.$emit("delete-click");
+    },
+    handleEditClick() {
+      this.$emit("edit-click");
     },
     handleMouseOver() {
       this.hover = true;
