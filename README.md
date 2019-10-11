@@ -6,6 +6,7 @@ ToDos are currently only saved in your browsers local storage, so keep in mind t
 
 ## Features
 ![](https://user-images.githubusercontent.com/3950661/66663858-c4cd4500-ec4b-11e9-86a4-898a270faee7.png)
+
 By design, DoDee only has a today list, there are no projects with multiple lists. This is somewhat inspired by [Jason Freid](https://lifehacker.com/im-jason-fried-ceo-of-basecamp-and-this-is-how-i-work-1790556608):
 
 > I have a small handful of things I know I need to do every day. If I can’t keep them in my head, I have too many things to do.
