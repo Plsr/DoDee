@@ -27,6 +27,9 @@ import ImportCandidate from "./components/ImportCandidate.vue";
 
 import { prepareTodoData } from "./utils/DataIntegrity.js";
 
+const SHIFT_KEYCODE = 16
+const A_KEYCODE = 65
+
 export default {
   name: "app",
   components: {
@@ -40,11 +43,14 @@ export default {
       todos: [],
       importTodos: [],
       dataLoaded: false,
-      filter: undefined
+      filter: undefined,
+      pressedKeys: []
     };
   },
   created() {
     window.addEventListener("beforeunload", this.saveTodos);
+    window.addEventListener("keydown", this.handleKeyDown);
+    window.addEventListener("keyup", this.handleKeyUp);
   },
   async mounted() {
     if (localStorage.getItem("todos")) {
@@ -86,7 +92,7 @@ export default {
         title: todo.title,
         tags: cleanedTags,
         done: false,
-        createdAt: dayjs(),
+        createdAt: dayjs().subtract(1, 'days'),
         id: uniqid()
       });
     },
@@ -117,6 +123,16 @@ export default {
     },
     hasImportCandidates() {
       return this.importTodos && this.importTodos.length > 0;
+    },
+    handleKeyDown(event) {
+      this.pressedKeys[event.keyCode] = true;    
+
+      if (this.pressedKeys[SHIFT_KEYCODE] && this.pressedKeys[A_KEYCODE]) {
+        this.$modal.show("create-todo-modal");
+      }
+    },
+    handleKeyUp(event) {
+      this.pressedKeys[event.keyCode] = false
     }
   }
 };

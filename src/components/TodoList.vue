@@ -13,7 +13,10 @@
         v-on:tag-click="setFilter"
       />
     </ul>
-    <button class="add-task-button" v-on:click="showCreateForm">+ Add new task</button>
+    <div class="button-wrapper">
+      <button class="add-task-button" v-on:click="showCreateForm">+ Add new task</button>
+      <small class="button-annotation">Or press Shift + A</small>
+    </div>
     <h3 class="headline headline-completed">Completed</h3>
     <ul class="todo-list">
       <todo-item
@@ -85,6 +88,20 @@ export default {
   margin: 0;
   margin-bottom: 1rem;
   font-size: 1.5rem;
+}
+
+.button-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.button-annotation {
+  font-weight: 600;
+  color: #888;
+  margin-top: 0.25rem;
+  font-size: 0.7rem;
+  font-style: italic;
 }
 
 .add-task-button {
